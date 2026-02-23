@@ -12,7 +12,7 @@ from app.schemas.auth import TeacherLogin, Token, TeacherMe
 from app.config import settings
 
 router = APIRouter(prefix="/auth", tags=["auth"])
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["argon2", "bcrypt"], deprecated="auto")
 
 
 def create_access_token(data: dict) -> str:

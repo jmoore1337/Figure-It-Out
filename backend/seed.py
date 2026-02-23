@@ -14,7 +14,7 @@ from app.models.assignment import Assignment
 from app.models.problem import Problem
 from app.config import settings
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 DEMO_EMAIL = "teacher@demo.com"
 DEMO_PASSWORD = "admin123"
