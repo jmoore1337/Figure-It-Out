@@ -7,8 +7,17 @@ async function apiFetch<T>(
   const { token, ...fetchOptions } = options;
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
-    ...(fetchOptions.headers as Record<string, string>),
   };
+  if (fetchOptions.headers) {
+    const incoming = fetchOptions.headers;
+    if (incoming instanceof Headers) {
+      incoming.forEach((value, key) => { headers[key] = value; });
+    } else if (Array.isArray(incoming)) {
+      incoming.forEach(([key, value]) => { headers[key] = value; });
+    } else {
+      Object.assign(headers, incoming as Record<string, string>);
+    }
+  }
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
