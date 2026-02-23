@@ -127,13 +127,11 @@ async def create_problem(
 @router.get("/assignments/{assignment_id}/problems", response_model=list[ProblemOut])
 async def list_problems(
     assignment_id: int,
-    teacher: TeacherUser = Depends(get_current_teacher),
     db: AsyncSession = Depends(get_db),
 ):
+    """Public endpoint to get problems for an assignment (used by both teachers and students)."""
     result = await db.execute(
-        select(Assignment)
-        .join(Class)
-        .where(Assignment.id == assignment_id, Class.teacher_id == teacher.id)
+        select(Assignment).where(Assignment.id == assignment_id)
     )
     if not result.scalar_one_or_none():
         raise HTTPException(status_code=404, detail="Assignment not found")
