@@ -1,3 +1,9 @@
 backend/**/__pycache__
 backend/**/*.pyc
 backend/*.db
+backend/.pytest_cache
+.env
+
+# Frontend build artifacts
+frontend/.next
+frontend/node_modules
